@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Junfei Cai.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -29,6 +29,7 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 ########################################################################
 
 import rosegraphics as rg
+import math
 
 
 def main():
@@ -89,7 +90,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
@@ -101,6 +102,30 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    def half_hourglass(height):
+        start_center_x = point.x
+        start_center_y = point.y
+        for i in range(n):
+            circle_center_x = start_center_x
+            for j in range(i + 1):
+                circle_center = rg.Point(circle_center_x, start_center_y)
+                circle = rg.Circle(circle_center, radius)
+                circle.fill_color = color
+                circle.attach_to(window)
+
+                line = rg.Line(rg.Point(circle_center_x - radius, start_center_y),
+                               rg.Point(circle_center_x + radius, start_center_y))
+                line.attach_to(window)
+
+                circle_center_x = circle_center_x + 2 * radius
+
+            start_center_y = start_center_y + height
+            start_center_x = start_center_x - radius
+
+    change_in_y = math.sqrt((2 * radius) ** 2 - radius ** 2)
+    half_hourglass(change_in_y)
+    half_hourglass((-change_in_y))
+    window.render()
 
 
 def run_test_many_hourglasses():
@@ -163,7 +188,7 @@ def many_hourglasses(window, square, m, colors):
     each of which denotes a color that rosegraphics understands.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
@@ -179,6 +204,31 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    n = 1
+    radius = square.length_of_each_side / 2
+    height = math.sqrt((2 * radius) ** 2 - radius ** 2)
+    ul_corner_x = square.center.x - radius
+    ul_corner_y = square.center.y - radius
+    lr_corner_x = square.center.x + radius
+    lr_corner_y = square.center.y + radius
+
+    for k in range(m):
+        ul_corner = rg.Point(ul_corner_x, ul_corner_y)
+        lr_corner = rg.Point(lr_corner_x, lr_corner_y)
+        rectangle = rg.Rectangle(ul_corner, lr_corner)
+        rectangle.attach_to(window)
+
+        point = rectangle.get_center()
+        color = colors[k % len(colors)]
+        hourglass(window, n, point, radius, color)
+
+        n = n + 1
+        ul_corner_x = ul_corner_x + 2 * (k + 1) * radius
+        ul_corner_y = ul_corner_y - height
+        lr_corner_x = lr_corner_x + 2 * (k + 2) * radius
+        lr_corner_y = lr_corner_y + height
+
+    window.render()
 
 
 # ----------------------------------------------------------------------
