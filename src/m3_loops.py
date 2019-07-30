@@ -6,7 +6,7 @@ This problem provides practice at:
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
          their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -45,7 +45,7 @@ def main():
 def run_test_practice_problem3():
     """ Tests the   practice_problem3  function. """
     ####################################################################
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  practice_problem3  function defined below.
     #   Include at least ** 2 ** ADDITIONAL tests beyond those we wrote.
     #
@@ -134,13 +134,36 @@ def run_test_practice_problem3():
     # SUGGESTION: Ask an assistant to CHECK your tests to confirm
     #             that they are adequate tests!
     ####################################################################
+    # Additional Test 1:
+    a1_start = -2
+    a1_n = 5
+    a1_threshold = 1
+    a1_correct = [1, 7, 13, 14, 19]
+    a1_return = practice_problem3(a1_start, a1_n, a1_threshold)
+    print()
+    print('Additional Test 1')
+    print('practice_problem3( ' + str(a1_start) + ' ,' + str(a1_n) + ' ,' + str(a1_threshold) + ' )')
+    print('The correct return value is', a1_correct)
+    print('My code returned ..........', a1_return)
+
+    # Additional Test 2:
+    a2_start = -4
+    a2_n = 9
+    a2_threshold = -float('inf')
+    a2_correct = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
+    a2_return = practice_problem3(a2_start, a2_n, a2_threshold)
+    print()
+    print('Additional Test 2')
+    print('practice_problem3( ' + str(a2_start) + ' ,' + str(a2_n) + ' ,' + str(a2_threshold) + ' )')
+    print('The correct return value is', a2_correct)
+    print('My code returned ..........', a2_return)
 
 
 def practice_problem3(start, n, threshold):
     """
     What comes in:
       -- An integer:  start
-      -- An nonnegative integer:  n
+      -- An non-negative integer:  n
       -- A number:  threshold
     What goes out:  Returns a list of the first n integers,
       starting at start, for which the sum of the integer's
@@ -208,7 +231,7 @@ def practice_problem3(start, n, threshold):
       :type threshold: float
     """
     ####################################################################
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Some tests are already written for you (above),
     #          but you are required to write ADDITIONAL tests (above).
     ####################################################################
@@ -216,6 +239,18 @@ def practice_problem3(start, n, threshold):
     #    DIFFICULTY:      5
     #    TIME ESTIMATE:   < 15 minutes.
     ####################################################################
+    integers_to_return = []
+    integers_to_test = start
+
+    while len(integers_to_return) < n:
+        sum_of_2s = math.sin(integers_to_test) + math.cos(integers_to_test)
+
+        if sum_of_2s > threshold:
+            integers_to_return = integers_to_return + [integers_to_test]
+
+        integers_to_test = integers_to_test + 1
+
+    return integers_to_return
 
 
 # ----------------------------------------------------------------------
